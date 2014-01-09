@@ -5,3 +5,4 @@ Markdown==2.0.3
 South>=0.6.2
 python-memcached==1.45
 git+git://github.com/fwenzel/django-mozilla-product-details#egg=django-mozilla-product-details
+unittest2==0.5.1

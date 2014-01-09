@@ -1,4 +1,4 @@
-import unittest
+import unittest2
 
 from xml.dom import minidom
 
@@ -40,7 +40,7 @@ class LocationTest(testcases.LocationTestCase):
             self.assertEqual(len(locations), len(self.locations[prodname]),
                              'return all locations for this product')
 
-    @unittest.skip('not working')
+    @unittest2.skip('not working')
     def test_location_add_new(self):
         """Add a new location through the API"""
         myproduct = self.products[0]
@@ -74,7 +74,7 @@ class LocationTest(testcases.LocationTestCase):
             new_location = None
         self.assert_(new_location, 'new location was added to DB')
 
-    @unittest.skip('not working')
+    @unittest2.skip('not working')
     def test_location_delete(self):
         """Delete a location by ID"""
         myloc = Location.objects.all()[0]
@@ -101,7 +101,7 @@ class LocationTest(testcases.LocationTestCase):
 
 class UptakeTest(testcases.UptakeTestCase):
 
-    @unittest.skip('not working')
+    @unittest2.skip('not working')
     def test_fuzzy(self):
         """List product uptake on mirrors"""
         testprod = self.products[0]
