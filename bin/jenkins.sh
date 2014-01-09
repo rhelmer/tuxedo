@@ -31,7 +31,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'bouncer',
         'USER': 'bouncer',
-        'PASSWORD': 'bouncer',
+        'PASSWORD': 'bouncertests',
         'HOST': 'localhost',
         'PORT': '',
         'OPTIONS': {
