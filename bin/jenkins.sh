@@ -43,7 +43,6 @@ DATABASES = {
         'TEST_COLLATION': 'utf8_general_ci',
     },
 }
-INSTALLED_APPS += ('php',)
 EOF
 
-python manage.py test api mirror geoip lib php users
+python manage.py test api mirror geoip lib users
