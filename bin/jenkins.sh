@@ -21,7 +21,7 @@ done
 popd
 
 # Django tests
-virtualenv -p python2.6 .venv
+virtualenv .venv
 . .venv/bin/activate
 pip install -r requirements.txt
 cp settings-dist.py settings.py
