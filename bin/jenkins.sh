@@ -21,7 +21,7 @@ done
 popd
 
 # Django tests
-virtualenv .venv
+virtualenv -p python2.6 .venv
 . .venv/bin/activate
 pip install -r requirements.txt
 cp settings-dist.py settings.py
@@ -45,4 +45,4 @@ DATABASES = {
 }
 EOF
 
-python manage.py test
+python manage.py test api mirror geoip lib php users
