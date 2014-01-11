@@ -94,7 +94,7 @@ AUTHENTICATION_BACKENDS = (
 AUTH_PROFILE_MODULE = 'users.UserProfile'
 LOGIN_REDIRECT_URL = '/'
 
-ROOT_URLCONF = 'tuxedo.urls'
+ROOT_URLCONF = 'urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
