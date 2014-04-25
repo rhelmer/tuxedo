@@ -15,6 +15,7 @@ class LocationTest(testcases.LocationTestCase):
 
         response = self.c.get(reverse('api.views.location_show'),
                               {'product': testprod.name})
+        self.assertEqual(response.status_code, 200)
         xmldoc = minidom.parseString(response.content)
         prods = xmldoc.getElementsByTagName('product')
         self.assertEqual(len(prods), 1, 'returned exactly one product')
@@ -29,6 +30,7 @@ class LocationTest(testcases.LocationTestCase):
 
         response = self.c.get(reverse('api.views.location_show'),
                               {'product': fuzzystring, 'fuzzy': True})
+        self.assertEqual(response.status_code, 200)
         xmldoc = minidom.parseString(response.content)
         prods = xmldoc.getElementsByTagName('product')
 
@@ -51,6 +53,7 @@ class LocationTest(testcases.LocationTestCase):
                                {'product': myproduct.name,
                                 'os': myos.name,
                                 'path': mypath, })
+        self.assertEqual(response.status_code, 200)
         xmldoc = minidom.parseString(response.content)
         prod = xmldoc.getElementsByTagName('product')
         loc = prod[0].getElementsByTagName('location')
@@ -76,6 +79,7 @@ class LocationTest(testcases.LocationTestCase):
         myloc = Location.objects.all()[0]
         response = self.c.post(reverse('api.views.location_delete'),
                                {'location_id': myloc.pk})
+        self.assertEqual(response.status_code, 200)
         xmldoc = minidom.parseString(response.content)
 
         msg = xmldoc.getElementsByTagName('success')
@@ -89,6 +93,7 @@ class LocationTest(testcases.LocationTestCase):
 
         response = self.c.post(reverse('api.views.location_delete'),
                                {'location_id': myloc.pk})
+        self.assertEqual(response.status_code, 200)
         xmldoc = minidom.parseString(response.content)
 
         msg = xmldoc.getElementsByTagName('error')
@@ -104,12 +109,14 @@ class UptakeTest(testcases.UptakeTestCase):
         # without fuzzy product matching
         response = self.c.get(reverse('api.views.uptake'),
                               {'product': testprod.name[:-3]})
+        self.assertEqual(response.status_code, 200)
         xmldoc = minidom.parseString(response.content)
         items = xmldoc.getElementsByTagName('item')
         self.assertEquals(len(items), 0, 'no fuzzy matching unless requested')
 
         response = self.c.get(reverse('api.views.uptake'),
                               {'product': testprod.name})
+        self.assertEqual(response.status_code, 200)
         xmldoc = minidom.parseString(response.content)
         items = xmldoc.getElementsByTagName('item')
         self.assertTrue(len(items) > 0, 'exact product matching')
@@ -118,6 +125,7 @@ class UptakeTest(testcases.UptakeTestCase):
         response = self.c.get(reverse('api.views.uptake'),
                               {'product': testprod.name[:-3],
                                'fuzzy': True})
+        self.assertEqual(response.status_code, 200)
         xmldoc = minidom.parseString(response.content)
         items = xmldoc.getElementsByTagName('item')
         self.assertTrue(len(items) > 0, 'fuzzy product matching')
