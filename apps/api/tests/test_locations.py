@@ -1,6 +1,7 @@
 from xml.dom import minidom
 
 from django.core.urlresolvers import reverse
+from django.contrib.auth.models import Permission
 
 from mirror.models import Location, OS
 
@@ -53,6 +54,14 @@ class LocationTest(testcases.LocationTestCase):
                                {'product': myproduct.name,
                                 'os': myos.name,
                                 'path': mypath, })
+        self.assertEqual(response.status_code, 401)
+
+        self.user.user_permissions.add(
+            Permission.objects.get(codename='add_location'))
+        response = self.c.post(reverse('api.views.location_add'),
+                               {'product': myproduct.name,
+                                'os': myos.name,
+                                'path': mypath, })
         self.assertEqual(response.status_code, 200)
         xmldoc = minidom.parseString(response.content)
         prod = xmldoc.getElementsByTagName('product')
@@ -79,7 +88,14 @@ class LocationTest(testcases.LocationTestCase):
         myloc = Location.objects.all()[0]
         response = self.c.post(reverse('api.views.location_delete'),
                                {'location_id': myloc.pk})
+        self.assertEqual(response.status_code, 401)
+
+        self.user.user_permissions.add(
+            Permission.objects.get(codename='delete_location'))
+        response = self.c.post(reverse('api.views.location_delete'),
+                               {'location_id': myloc.pk})
         self.assertEqual(response.status_code, 200)
+
         xmldoc = minidom.parseString(response.content)
 
         msg = xmldoc.getElementsByTagName('success')
@@ -93,7 +109,8 @@ class LocationTest(testcases.LocationTestCase):
 
         response = self.c.post(reverse('api.views.location_delete'),
                                {'location_id': myloc.pk})
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 400)
+
         xmldoc = minidom.parseString(response.content)
 
         msg = xmldoc.getElementsByTagName('error')

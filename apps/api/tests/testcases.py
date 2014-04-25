@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Permission
 from django import test
 
 from mirror.models import Location, LocationMirrorMap, Mirror, OS, Product
@@ -18,7 +18,8 @@ class APITestCase(test.TestCase):
         self.user.is_staff = True
         self.user.save()
         self.c = test.client.Client()
-        self.c.login(username=username, password=pw)
+        logged_in = self.c.login(username=username, password=pw)
+        self.assertTrue(logged_in)
 
 
 class ProductTestCase(APITestCase):
